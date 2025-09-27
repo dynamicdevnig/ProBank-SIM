@@ -239,23 +239,64 @@
       to { transform: rotate(360deg); }
     }
     .receipt {
-      background: #2e1a3e;
-      color: var(--text);
-      padding: 1rem;
-      border-radius: 10px;
-      font-size: 0.9rem;
-    }
-    .receipt h4 {
-      margin-bottom: 0.8rem;
-      text-align: center;
-    }
-    .receipt .row {
-      display: flex;
-      justify-content: space-between;
-      margin-bottom: 0.4rem;
-    }
-    .receipt .row span:first-child {
-      color: #bbb;
+  background: #ffffff;
+  color: #000000;
+  padding: 0.5rem 1.5rem;
+  border-radius: 10px;
+  font-size: 0.90rem;
+  font-family: 'Arial', sans-serif;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.receipt .bank-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 2px solid #f0f0f0;
+  padding-bottom: 0.8rem;
+  margin-bottom: 1rem;
+}
+
+.receipt .bank-header img {
+  height: 40px;
+}
+
+.receipt .bank-header .bank-name {
+  font-weight: bold;
+  font-size: 0.8rem;
+  color: #ff6600;
+}
+
+.receipt h4 {
+  text-align: center;
+  font-weight: bold;
+  margin-bottom: 1.2rem;
+  color: #003366;
+}
+
+.receipt .row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+  font-size: 0.5rem;
+}
+
+.receipt .row span:first-child {
+  color: #666;
+  font-weight: 600;
+}
+
+.receipt .row span:last-child {
+  font-weight: 400;
+}
+
+.receipt .footer {
+  border-top: 1px solid #ddd;
+  margin-top: 1.2rem;
+  padding-top: 0.8rem;
+  font-size: 0.75rem;
+  color: #666;
+  text-align: center;
     }
     @media screen and (max-width: 420px) {
       .actions {
@@ -353,23 +394,30 @@
         const m = document.createElement('div');
         m.classList.add('modal');
         m.innerHTML = `
-          <button class="close-btn">&times;</button>
-          <h3>Transaction Receipt</h3>
-          <div class="receipt">
-            <h4>${tx.type}</h4>
-            <div class="row"><span>Date:</span><span>${formatDate(tx.timestamp)}</span></div>
-            <div class="row"><span>Amount:</span><span>₦${tx.amount.toFixed(2)}</span></div>
-            <div class="row"><span>Balance After:</span><span>₦${tx.balanceAfter.toFixed(2)}</span></div>
-            ${tx.type === 'Send' ? `
-              <div class="row"><span>Receiver:</span><span>${tx.receiverName}</span></div>
-              <div class="row"><span>Account No:</span><span>${tx.receiverAccount}</span></div>
-              <div class="row"><span>Bank:</span><span>${tx.receiverBank}</span></div>
-            ` : ''}
-            ${tx.type === 'Receive' ? `
-              <div class="row"><span>Sender:</span><span>${tx.senderName}</span></div>
-            ` : ''}
-          </div>
-        `;
+  <button class="close-btn">&times;</button>
+  <h3>Transaction Receipt</h3>
+  <div class="receipt">
+    <div class="bank-header">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/1/1e/Access_Bank_logo.png" alt="Bank Logo" />
+      <div class="bank-name">ProBank<span style="font-size: 0.7rem; color: #999;">more than banking</span></div>
+    </div>
+    <h4>Transfer Receipt</h4>
+    <div class="row"><span>Transaction Amount:</span><span>₦${tx.amount.toFixed(2)}</span></div>
+    <div class="row"><span>Transaction Type:</span><span>${tx.type === 'Send' ? 'INTER-BANK' : 'INCOMING'}</span></div>
+    <div class="row"><span>Transaction Date:</span><span>${formatDate(tx.timestamp)}</span></div>
+    ${tx.type === 'Send' ? `
+      <div class="row"><span>Sender:</span><span>You</span></div>
+      <div class="row"><span>Beneficiary:</span><span>${tx.receiverName}</span></div>
+      <div class="row"><span>Account No:</span><span>${tx.receiverAccount}</span></div>
+      <div class="row"><span>Bank:</span><span>${tx.receiverBank}</span></div>
+    ` : `
+      <div class="row"><span>Sender:</span><span>${tx.senderName}</span></div>
+      <div class="row"><span>Beneficiary:</span><span>You</span></div>
+    `}
+    <div class="row"><span>Transaction Reference:</span><span>NXG${tx.timestamp.toString().slice(-12)}</span></div>
+    <div class="row"><span>Status:</span><span style="color: green;">Successful</span></div>
+  </div>
+`;
         m.querySelector('.close-btn').addEventListener('click', closeModal);
         openModal(m);
       }
