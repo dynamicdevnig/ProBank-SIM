@@ -666,10 +666,10 @@
             case 'Settings': openSettingsModal(); break;
             case 'Airtime':
             case 'Pay Bills':
-              alert(`"${act}" service coming soon.`);
+              alert(`${act} service coming soon.`);
               break;
             default:
-              alert(`Service "${act}" not yet implemented.`);
+              alert(`Service ${act} not yet implemented.`);
           }
         });
       });
@@ -729,7 +729,13 @@
     </div>
     <div class="section-title">Transactions</div>
     <div class="transactions"></div>
-    <footer>Fintech Demo &mdash; 2025</footer>
+    <div style="text-align: center; margin-top: 2rem;">
+  <a href="https://discord.gg/RRWWDjhCdn" target="_blank" style="text-decoration: none; color: inherit;">
+    <img src="https://cdn.jsdelivr.net/gh/edent/SuperTinyIcons/images/svg/discord.svg" alt="Discord" width="40" height="40" style="vertical-align: middle; margin-right: 8px;" />
+    <span style="font-weight: 600; font-size: 1rem;">Join our Discord Community</span>
+  </a>
+</div>
+    <footer>Dynamic Dev &mdash; 2025</footer>
   </div>
 </body>
 </html>
